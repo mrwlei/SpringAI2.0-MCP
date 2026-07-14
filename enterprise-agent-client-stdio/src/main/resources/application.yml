@@ -1,0 +1,31 @@
+server:
+  port: ${STDIO_AGENT_PORT:8082}
+spring:
+  application:
+    name: enterprise-agent-client-stdio
+  ai:
+    model:
+      chat: openai
+    openai:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        model: ${DEEPSEEK_MODEL:deepseek-v4-flash}
+    mcp:
+      client:
+        type: SYNC
+        name: enterprise-agent-client-stdio
+        version: 0.1.0
+        request-timeout: 30s
+        stdio:
+          connections:
+            enterprise-query:
+              command: ${ENTERPRISE_MCP_STDIO_COMMAND:java}
+              args:
+                - -jar
+                - ${ENTERPRISE_MCP_STDIO_SERVER_JAR:enterprise-mcp-server-stdio/target/enterprise-mcp-server-stdio-0.1.0-SNAPSHOT.jar}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

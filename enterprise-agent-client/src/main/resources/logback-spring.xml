@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context"
+                    name="applicationName"
+                    source="spring.application.name"
+                    defaultValue="enterprise-agent-client"/>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [${applicationName}] [traceId=%X{traceId:-none}] [%thread] %logger{40} - %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.example.enterprise" level="${APP_LOG_LEVEL:-INFO}"/>
+    <logger name="com.example.enterprise.agent.llm.content"
+            level="${MODEL_CONTENT_LOG_LEVEL:-OFF}"/>
+    <logger name="org.springframework.web.reactive.function.client" level="WARN"/>
+
+    <root level="${ROOT_LOG_LEVEL:-INFO}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

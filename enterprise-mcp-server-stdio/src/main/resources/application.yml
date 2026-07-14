@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: enterprise-mcp-server-stdio
+  datasource:
+    url: ${ENTERPRISE_DB_URL:jdbc:mysql://dev-mysql.5upay.db:3309/mmtax?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&useSSL=false&serverTimezone=Asia/Shanghai}
+    username: ${ENTERPRISE_DB_USERNAME:ehking-dev}
+    password: ${ENTERPRISE_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: EnterpriseQueryPool
+      minimum-idle: ${ENTERPRISE_DB_MINIMUM_IDLE:2}
+      maximum-pool-size: ${ENTERPRISE_DB_MAXIMUM_POOL_SIZE:10}
+      connection-timeout: ${ENTERPRISE_DB_CONNECTION_TIMEOUT:30000}
+      validation-timeout: ${ENTERPRISE_DB_VALIDATION_TIMEOUT:5000}
+      idle-timeout: ${ENTERPRISE_DB_IDLE_TIMEOUT:600000}
+      max-lifetime: ${ENTERPRISE_DB_MAX_LIFETIME:1800000}
+      read-only: true
+  main:
+    web-application-type: none
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        stdio: true
+        type: SYNC
+        name: enterprise-query-mcp
+        version: 0.1.0
+        instructions: 企业员工、组织与交易订单信息只读查询服务。调用方必须遵守最小权限原则。
+        capabilities:
+          tool: true
+          resource: false
+          prompt: false
+          completion: false
+        annotation-scanner:
+          enabled: true
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 10

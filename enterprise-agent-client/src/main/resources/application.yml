@@ -1,0 +1,27 @@
+server:
+  port: ${AGENT_PORT:8080}
+spring:
+  application:
+    name: enterprise-agent-client
+  ai:
+    model:
+      chat: openai
+    openai:
+      api-key: ${DEEPSEEK_API_KEY}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        model: ${DEEPSEEK_MODEL:deepseek-v4-flash}
+    mcp:
+      client:
+        type: SYNC
+        request-timeout: 30s
+        streamable-http:
+          connections:
+            enterprise-query:
+              url: ${ENTERPRISE_MCP_URL:http://localhost:8081}
+              endpoint: /mcp
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

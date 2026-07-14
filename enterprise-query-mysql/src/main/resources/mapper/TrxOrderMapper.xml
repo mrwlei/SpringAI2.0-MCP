@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.enterprise.query.mysql.mapper.TrxOrderMapper">
+
+    <sql id="BaseColumnList">
+        `id`,
+        `merchant_name`,
+        `amount`,
+        `tax_rate`,
+        `charge`,
+        `actual_amount`,
+        `order_serial_num`,
+        `merchant_serial_num`,
+        `batch_no`,
+        `payment_voucher`,
+        `payee_name`,
+        `payee_mobile`,
+        `payee_bank_card`,
+        `bank_name`,
+        `payee_id_card_no`,
+        `order_status`,
+        `batch_payment_record_id`,
+        `payment_channel`,
+        `merchant_id`,
+        `dna`,
+        `trx_no`,
+        `comment`,
+        `subject_conscription`,
+        `error_code`,
+        `provider_id`,
+        `fillup_charge_type`,
+        `fillup_charge`,
+        `error_msg`,
+        `create_time`,
+        `update_time`,
+        `original_trx_no`,
+        `subrogate_id`,
+        `payee_name_dec`,
+        `payee_mobile_dec`,
+        `payee_bank_card_dec`,
+        `payee_id_card_no_dec`,
+        `personal_rate`,
+        `company_rate`,
+        `fillup_fee_bears`,
+        `personal_charge`,
+        `company_charge`,
+        `task_user_id`,
+        `receive_status`,
+        `task_id`,
+        `trade_mode`,
+        `real_subrogate_id`,
+        `real_subrogate`,
+        `transfer_fee`,
+        `task_order_id`,
+        `mission_name`,
+        `task_number`,
+        `actual_charge`,
+        `actual_fillup_charge`,
+        `belong_agent_id`,
+        `super_agent_id`,
+        `top_agent_id`,
+        `quota_type`,
+        `actual_tax_rate`,
+        `complete_date_time`,
+        `invoke_mode`,
+        `bank_serial_num`,
+        `bank_fund_serial_num`,
+        `transfer_scene_report_info`,
+        `app_id`,
+        `person_tax_amount`,
+        `channel_rate`,
+        `channel_fee`
+    </sql>
+
+    <select id="findByPayeeIdCardNo"
+            resultType="com.example.enterprise.query.mysql.model.TrxOrder">
+        SELECT
+        <include refid="BaseColumnList"/>
+        FROM `tbl_trx_order`
+        WHERE `payee_id_card_no` = #{payeeIdCardNo,jdbcType=VARCHAR}
+        ORDER BY `create_time` DESC, `id` DESC
+    </select>
+</mapper>
